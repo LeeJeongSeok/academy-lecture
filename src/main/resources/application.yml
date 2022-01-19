@@ -1,0 +1,20 @@
+server:
+  port: 8202
+  servlet:
+    context-path: /academysteveclass
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://14.32.58.125:4002/dev
+    username: root
+    password: root123#class
+    hikari:
+      auto-commit: false
+      connection-test-query: SELECT 1
+      minimum-idle: 10
+      maximum-pool-size: 50
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
