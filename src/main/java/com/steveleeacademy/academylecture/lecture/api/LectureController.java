@@ -2,6 +2,8 @@ package com.steveleeacademy.academylecture.lecture.api;
 
 import com.steveleeacademy.academylecture.lecture.dto.LectureCreateDto;
 import com.sun.xml.bind.v2.TODO;
+import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,9 @@ import javax.validation.Valid;
 import java.nio.charset.Charset;
 import java.util.*;
 
+@Api(tags = "오프라인 클래스 API")
 @RestController
+@RequestMapping("/api/v1")
 @Slf4j
 public class LectureController {
 
