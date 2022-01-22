@@ -12,7 +12,7 @@ public class Lecture {
     private Long id;
 
     @OneToMany(mappedBy = "lecture")
-    private List<Category> categorys;
+    private List<Category> categories;
 
     @OneToMany(mappedBy = "lecture")
     private List<Keyword> keywords;
@@ -28,7 +28,7 @@ public class Lecture {
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private String times;
+    private String remainingLecture;
     private RegistStatus registStatus;
     private LectureStatus lectureStatus;
     private LocalDateTime createDate;
