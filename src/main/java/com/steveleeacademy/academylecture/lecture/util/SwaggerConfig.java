@@ -29,7 +29,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.steveleeacademy.academylecture"))
-                .paths(PathSelectors.ant("/academysteveclass/api/v1/lecture/**"))
+                .paths(PathSelectors.ant("/academysteveclass/api/v1/**"))
                 .build();
     }
 }
