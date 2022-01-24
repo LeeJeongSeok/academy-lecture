@@ -1,6 +1,8 @@
 package com.steveleeacademy.academylecture.lecture.api;
 
 import com.steveleeacademy.academylecture.lecture.dto.LectureCreateDto;
+import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
+import com.steveleeacademy.academylecture.lecture.service.LectureService;
 import com.sun.xml.bind.v2.TODO;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -10,20 +12,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.nio.charset.Charset;
 import java.util.*;
 
+@CrossOrigin
 @Api(tags = "오프라인 클래스 API")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1")
 @Slf4j
 public class LectureController {
+
+    private final LectureService lectureService;
 
     /**
      * 강의목록
@@ -56,9 +59,10 @@ public class LectureController {
      */
     // TODO : 강의 생성부터 우선적으로 실행되어야 함
     @PostMapping("/createLecture")
-    @Valid
-    public ResponseEntity<String> createLecture(@Valid LectureCreateDto lectureCreateDto) {
-        log.info("createLecture info : {}", lectureCreateDto);
+    public ResponseEntity<String> createLecture(@RequestBody LectureCreateForm lectureCreateForm) {
+        log.info("createLecture info : {}", lectureCreateForm);
+
+        lectureService.createLecture(lectureCreateForm);
 
         return ResponseEntity.ok().body("강의 생성 성공");
     }
