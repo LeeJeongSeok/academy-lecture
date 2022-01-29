@@ -15,7 +15,7 @@ public class Keyword {
     private Long id;
     private String keywordName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 

@@ -23,11 +23,11 @@ public class Lecture {
     @Column(name = "LECTURE_ID")
     private Long id;
 
-    @OneToMany(mappedBy = "lecture")
-    private List<Category> categories;
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL)
+    private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture")
-    private List<Keyword> keywords;
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL)
+    private List<Keyword> keywords = new ArrayList<>();
 
     private String title;
     private String content;
@@ -35,14 +35,19 @@ public class Lecture {
     private String startTime;
     private String endTime;
 
-    @OneToMany(mappedBy = "lecture")
-    private List<Day> days;
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL)
+    private List<Day> days = new ArrayList<>();
 
     private LocalDate startDate;
     private LocalDate endDate;
     private String remainingLecture;
+
+    @Enumerated(value = EnumType.STRING)
     private RegistStatus registStatus;
+
+    @Enumerated(value = EnumType.STRING)
     private LectureStatus lectureStatus;
+
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private LocalDateTime deleteDate;

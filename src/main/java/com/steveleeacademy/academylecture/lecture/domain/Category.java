@@ -20,7 +20,8 @@ public class Category {
 
     private String categoryName;
 
-    @ManyToOne
+    // TODO : 강의 테이블과 다대다 관계 아잉교..?
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 

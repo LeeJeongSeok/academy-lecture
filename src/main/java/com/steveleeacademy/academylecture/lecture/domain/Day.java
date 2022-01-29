@@ -15,7 +15,7 @@ public class Day {
     private Long id;
     private String day;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 }
