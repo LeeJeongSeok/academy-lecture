@@ -11,21 +11,20 @@ import javax.persistence.*;
 public class Category {
 
     public Category(String category) {
-        this.categoryName = categoryName;
+        this.category = category;
     }
 
     @Id @GeneratedValue
     @Column(name = "CATEGORY_ID")
     private Long id;
 
-    private String categoryName;
+    private String category;
 
-    // TODO : 강의 테이블과 다대다 관계 아잉교..?
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 
-    public void setCategory(Category category) {
+    public void setCategory(Lecture lecture) {
         this.lecture = lecture;
     }
 

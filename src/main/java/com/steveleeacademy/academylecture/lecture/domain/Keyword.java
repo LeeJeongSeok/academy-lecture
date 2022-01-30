@@ -10,13 +10,21 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Keyword {
 
+    public Keyword(String keyword) {
+        this.keyword = keyword;
+    }
+
     @Id @GeneratedValue
     @Column(name = "KEYWORD_ID")
     private Long id;
-    private String keywordName;
+    private String keyword;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
+
+    public void setKeyword(Lecture lecture) {
+        this.lecture = lecture;
+    }
 
 }

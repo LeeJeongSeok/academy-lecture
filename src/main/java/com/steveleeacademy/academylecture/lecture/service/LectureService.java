@@ -1,6 +1,7 @@
 package com.steveleeacademy.academylecture.lecture.service;
 
 import com.steveleeacademy.academylecture.lecture.domain.Category;
+import com.steveleeacademy.academylecture.lecture.domain.Day;
 import com.steveleeacademy.academylecture.lecture.domain.Keyword;
 import com.steveleeacademy.academylecture.lecture.domain.Lecture;
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
@@ -13,8 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -25,12 +24,6 @@ public class LectureService {
     private final CategoryRepository categoryRepository;
     private final DayRepository dayRepository;
     private final KeywordRepository keywordRepository;
-
-    // 강의 생성
-
-    // 강의 리스트
-
-    // 강의 상세보기
 
     // 필터 조건으로 강의 찾기
 
@@ -44,27 +37,27 @@ public class LectureService {
 
         Lecture lecture = lectureRepository.save(Lecture.createLectureBuilder(lectureCreateForm));
 
-        List<String> categories = lectureCreateForm.getCategories();
-        List<String> keywords = lectureCreateForm.getKeywords();
-        List<String> days = lectureCreateForm.getDays();
-
         lectureCreateForm.getCategories().forEach(category -> {
             lecture.addCategory(new Category(category));
         });
 
-        for (String category : categories) {
-            log.info("category : {}", category);
-        }
+        lectureCreateForm.getDays().forEach(day -> {
+            lecture.addDay(new Day(day));
+        });
 
-        for (String keyword : keywords) {
-            log.info("keyword : {}", keyword);
-        }
-
-        for (String day : days) {
-            log.info("day : {}", day);
-        }
+        lectureCreateForm.getKeywords().forEach(keyword -> {
+            lecture.addKeyword(new Keyword(keyword));
+        });
 
         return lecture.getId();
     }
+
+    /**
+     * 강의 리스트
+     */
+
+    /**
+     * 강의 상세보기
+     */
 
 }

@@ -53,8 +53,18 @@ public class Lecture {
     private LocalDateTime deleteDate;
 
     public void addCategory(Category category) {
-        category.setCategory(category);
+        category.setCategory(this);
         this.categories.add(category);
+    }
+
+    public void addDay(Day day) {
+        day.setDay(this);
+        this.days.add(day);
+    }
+
+    public void addKeyword(Keyword keyword) {
+        keyword.setKeyword(this);
+        this.keywords.add(keyword);
     }
 
     public static Lecture createLectureBuilder(LectureCreateForm lectureCreateForm) {
