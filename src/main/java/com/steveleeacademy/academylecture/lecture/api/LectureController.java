@@ -2,6 +2,7 @@ package com.steveleeacademy.academylecture.lecture.api;
 
 import com.steveleeacademy.academylecture.lecture.dto.LectureCreateDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureDetailDto;
+import com.steveleeacademy.academylecture.lecture.dto.LectureListDto;
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
 import com.steveleeacademy.academylecture.lecture.service.LectureService;
 import com.sun.xml.bind.v2.TODO;
@@ -30,20 +31,11 @@ public class LectureController {
     private final LectureService lectureService;
 
     /**
-     * 강의목록
+     * 강의 리스트
      */
     @GetMapping("/")
-    public ResponseEntity getLectures() {
-//        HashMap<String, String> header = new HashMap<>();
-//        header.put("resultCode", "ok");
-//        header.put("resultMesg", "test");
-//
-//        List<String> headers = new ArrayList<>(header.keySet());
-
-        HttpHeaders headers= new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-
-        return new ResponseEntity("test", headers, HttpStatus.OK);
+    public ResponseEntity<LectureListDto> getLectures() {
+        return ResponseEntity.ok(lectureService.findLectures());
     }
 
     /**
