@@ -1,6 +1,7 @@
 package com.steveleeacademy.academylecture.lecture.domain;
 
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
+import com.steveleeacademy.academylecture.lecture.form.LectureUpdateForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -83,6 +84,26 @@ public class Lecture {
                 .registStatus(lectureCreateForm.getRegistStatus())
                 .lectureStatus(lectureCreateForm.getLectureStatus())
                 .createDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
+                .build();
+    }
+
+    public static Lecture updateLectureBuilder(LectureUpdateForm lectureUpdateForm) {
+        return Lecture.builder()
+                .id(lectureUpdateForm.getId())
+                .categories(new ArrayList<>())
+                .keywords(new ArrayList<>())
+                .title(lectureUpdateForm.getTitle())
+                .content(lectureUpdateForm.getContent())
+                .writer(lectureUpdateForm.getWriter())
+                .startTime(lectureUpdateForm.getStartTime())
+                .endTime(lectureUpdateForm.getEndTime())
+                .days(new ArrayList<>())
+                .startDate(lectureUpdateForm.getStartDate())
+                .endDate(lectureUpdateForm.getEndDate())
+                .remainingLecture(lectureUpdateForm.getRemainingLecture())
+                .registStatus(lectureUpdateForm.getRegistStatus())
+                .lectureStatus(lectureUpdateForm.getLectureStatus())
                 .updateDate(LocalDateTime.now())
                 .build();
     }
