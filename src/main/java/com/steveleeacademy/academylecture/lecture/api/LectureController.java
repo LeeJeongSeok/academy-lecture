@@ -1,6 +1,7 @@
 package com.steveleeacademy.academylecture.lecture.api;
 
 import com.steveleeacademy.academylecture.lecture.dto.LectureCreateDto;
+import com.steveleeacademy.academylecture.lecture.dto.LectureDetailDto;
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
 import com.steveleeacademy.academylecture.lecture.service.LectureService;
 import com.sun.xml.bind.v2.TODO;
@@ -48,9 +49,9 @@ public class LectureController {
     /**
      * 강의상세보기
      */
-    @GetMapping("/lectureDetail")
-    public void lectureDetail() {
-
+    @GetMapping("/lectureDetail/{lectureId}")
+    public ResponseEntity<LectureDetailDto> lectureDetail(@PathVariable Long lectureId) {
+        return ResponseEntity.ok(lectureService.findLecture(lectureId));
     }
 
     /**

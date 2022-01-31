@@ -4,6 +4,8 @@ import com.steveleeacademy.academylecture.lecture.domain.Category;
 import com.steveleeacademy.academylecture.lecture.domain.Day;
 import com.steveleeacademy.academylecture.lecture.domain.Keyword;
 import com.steveleeacademy.academylecture.lecture.domain.Lecture;
+import com.steveleeacademy.academylecture.lecture.dto.LectureDetailDto;
+import com.steveleeacademy.academylecture.lecture.dto.LectureListDto;
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
 import com.steveleeacademy.academylecture.lecture.repository.CategoryRepository;
 import com.steveleeacademy.academylecture.lecture.repository.DayRepository;
@@ -55,9 +57,17 @@ public class LectureService {
     /**
      * 강의 리스트
      */
+    public LectureListDto findLectures() {
+
+        return new LectureListDto();
+    }
 
     /**
      * 강의 상세보기
      */
+    public LectureDetailDto findLecture(Long lectureId) {
+        return LectureDetailDto.createLectureDetailDto(lectureRepository.findById(lectureId).get());
+    }
+
 
 }
