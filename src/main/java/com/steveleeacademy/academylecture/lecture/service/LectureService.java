@@ -115,10 +115,15 @@ public class LectureService {
     /**
      * 필터 조건으로 강의 찾기
      */
+    public List<LectureContentDto> searchLecture(String category, String title, String writer) {
 
-    /**
-     * 강의 신청
-     */
+        if (category.equals("all")) {
+            List<Lecture> searchingLectures = lectureRepository.searchingLecture(title, writer);
+            return LectureContentDto.createLectureListDto(searchingLectures);
+        }
 
+        List<Lecture> searchingLectures = lectureRepository.searchingLectureWithCategory(category, title, writer);
+        return LectureContentDto.createLectureListDto(searchingLectures);
+    }
 
 }

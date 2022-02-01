@@ -1,5 +1,6 @@
 package com.steveleeacademy.academylecture.lecture.api;
 
+import com.steveleeacademy.academylecture.lecture.dto.LectureContentDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureDetailDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureListDto;
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Api(tags = "오프라인 클래스 API")
 @RestController
@@ -41,7 +43,6 @@ public class LectureController {
 
     /**
      * 강의생성
-     * 강의 시퀀스 리턴?
      */
     @PostMapping("/lecture")
     public ResponseEntity<Long> createLecture(@Valid @RequestBody LectureCreateForm lectureCreateForm) {
@@ -59,7 +60,14 @@ public class LectureController {
     }
 
     /**
-     * 필터처리
+     * 검색명 & 카테고리로 찾기
      */
+    @GetMapping("/lecture/search")
+    public ResponseEntity<List<LectureContentDto>> searchLecture(@RequestParam String category, @RequestParam String title, @RequestParam String writer) {
+        log.info("### Search Category  : {}", category);
+        log.info("### Search Title : {}", title);
+        log.info("### Search Writer : {}", writer);
 
+        return ResponseEntity.ok(lectureService.searchLecture(category, title, writer));
+    }
 }
