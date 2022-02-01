@@ -1,25 +1,17 @@
 package com.steveleeacademy.academylecture.lecture.api;
 
-import com.steveleeacademy.academylecture.lecture.dto.LectureCreateDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureDetailDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureListDto;
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
 import com.steveleeacademy.academylecture.lecture.form.LectureUpdateForm;
 import com.steveleeacademy.academylecture.lecture.service.LectureService;
-import com.sun.xml.bind.v2.TODO;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.nio.charset.Charset;
-import java.util.*;
 
 @Api(tags = "오프라인 클래스 API")
 @RestController
