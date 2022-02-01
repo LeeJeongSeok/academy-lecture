@@ -22,7 +22,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class LectureService {
 
@@ -34,7 +34,6 @@ public class LectureService {
     /**
      * 강의 생성
      */
-    @Transactional
     public Long createLecture(LectureCreateForm lectureCreateForm) {
 
         Lecture lecture = lectureRepository.save(Lecture.createLectureBuilder(lectureCreateForm));
@@ -51,7 +50,7 @@ public class LectureService {
             lecture.addKeyword(new Keyword(keyword));
         });
 
-        return lecture.getId();
+        return lectureRepository.save(lecture).getId();
     }
 
     /**
@@ -70,7 +69,9 @@ public class LectureService {
         return LectureDetailDto.createLectureDetailDto(lectureRepository.findById(lectureId).get());
     }
 
-    @Transactional
+    /**
+     * 강의 수정
+     */
     public Long updateLecture(LectureUpdateForm lectureUpdateForm) {
 
         if (lectureUpdateForm.getId() != null) {
