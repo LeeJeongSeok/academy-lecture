@@ -76,17 +76,7 @@ public class LectureService {
 
         if (lectureUpdateForm.getId() != null) {
 
-            lectureRepository.findById(lectureUpdateForm.getId()).get().getCategories().forEach(category -> {
-                categoryRepository.deleteById(category.getId());
-            });
-
-            lectureRepository.findById(lectureUpdateForm.getId()).get().getDays().forEach(day -> {
-                dayRepository.deleteById(day.getId());
-            });
-
-            lectureRepository.findById(lectureUpdateForm.getId()).get().getKeywords().forEach(keyword -> {
-                keywordRepository.deleteById(keyword.getId());
-            });
+            deleteForeignData(lectureUpdateForm);
 
             Lecture updateLecture = Lecture.updateLectureBuilder(lectureUpdateForm);
 
@@ -101,10 +91,25 @@ public class LectureService {
             lectureUpdateForm.getKeywords().forEach(keyword -> {
                 updateLecture.addKeyword(new Keyword(keyword));
             });
+
             return lectureRepository.save(updateLecture).getId();
         } else {
             throw new IllegalArgumentException("수정할 강의 ID값이 존재하지 않습니다.");
         }
+    }
+
+    private void deleteForeignData(LectureUpdateForm lectureUpdateForm) {
+        lectureRepository.findById(lectureUpdateForm.getId()).get().getCategories().forEach(category -> {
+            categoryRepository.deleteById(category.getId());
+        });
+
+        lectureRepository.findById(lectureUpdateForm.getId()).get().getDays().forEach(day -> {
+            dayRepository.deleteById(day.getId());
+        });
+
+        lectureRepository.findById(lectureUpdateForm.getId()).get().getKeywords().forEach(keyword -> {
+            keywordRepository.deleteById(keyword.getId());
+        });
     }
 
     /**
