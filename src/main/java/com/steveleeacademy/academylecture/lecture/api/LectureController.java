@@ -21,10 +21,10 @@ import javax.validation.Valid;
 import java.nio.charset.Charset;
 import java.util.*;
 
-@CrossOrigin
 @Api(tags = "오프라인 클래스 API")
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/v1")
 @Slf4j
 public class LectureController {
@@ -34,7 +34,7 @@ public class LectureController {
     /**
      * 강의 리스트
      */
-    @GetMapping("/")
+    @GetMapping("/lecture")
     public ResponseEntity<LectureListDto> getLectures() {
         return ResponseEntity.ok(lectureService.findLectures());
     }
@@ -42,16 +42,16 @@ public class LectureController {
     /**
      * 강의상세보기
      */
-    @GetMapping("/lectureDetail/{lectureId}")
-    public ResponseEntity<LectureDetailDto> getLecture(@PathVariable Long lectureId) {
-        return ResponseEntity.ok(lectureService.findLecture(lectureId));
+    @GetMapping("/lecture/{id}")
+    public ResponseEntity<LectureDetailDto> getLecture(@PathVariable Long id) {
+        return ResponseEntity.ok(lectureService.findLecture(id));
     }
 
     /**
      * 강의생성
      * 강의 시퀀스 리턴?
      */
-    @PostMapping("/createLecture")
+    @PostMapping("/lecture")
     public ResponseEntity<Long> createLecture(@Valid @RequestBody LectureCreateForm lectureCreateForm) {
         log.info("### Lecture Create Form : {}", lectureCreateForm);
         return ResponseEntity.ok(lectureService.createLecture(lectureCreateForm));
@@ -60,7 +60,7 @@ public class LectureController {
     /**
      * 강의 수정
      */
-    @PutMapping("/updateLecture")
+    @PutMapping("/lecture")
     public ResponseEntity<Long> updateLecture(@Valid @RequestBody LectureUpdateForm lectureUpdateForm) {
         log.info("### Lecture Update Form : {}", lectureUpdateForm.getId());
         return ResponseEntity.ok(lectureService.updateLecture(lectureUpdateForm));
