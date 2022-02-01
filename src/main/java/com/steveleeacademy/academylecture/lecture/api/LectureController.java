@@ -4,6 +4,7 @@ import com.steveleeacademy.academylecture.lecture.dto.LectureCreateDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureDetailDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureListDto;
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
+import com.steveleeacademy.academylecture.lecture.form.LectureUpdateForm;
 import com.steveleeacademy.academylecture.lecture.service.LectureService;
 import com.sun.xml.bind.v2.TODO;
 import io.swagger.annotations.Api;
@@ -42,7 +43,7 @@ public class LectureController {
      * 강의상세보기
      */
     @GetMapping("/lectureDetail/{lectureId}")
-    public ResponseEntity<LectureDetailDto> lectureDetail(@PathVariable Long lectureId) {
+    public ResponseEntity<LectureDetailDto> getLecture(@PathVariable Long lectureId) {
         return ResponseEntity.ok(lectureService.findLecture(lectureId));
     }
 
@@ -50,14 +51,19 @@ public class LectureController {
      * 강의생성
      * 강의 시퀀스 리턴?
      */
-    // TODO : 강의 생성부터 우선적으로 실행되어야 함
     @PostMapping("/createLecture")
-    public ResponseEntity<String> createLecture(@RequestBody LectureCreateForm lectureCreateForm) {
-        log.info("createLecture info : {}", lectureCreateForm);
+    public ResponseEntity<Long> createLecture(@Valid @RequestBody LectureCreateForm lectureCreateForm) {
+        log.info("### Lecture Create Form : {}", lectureCreateForm);
+        return ResponseEntity.ok(lectureService.createLecture(lectureCreateForm));
+    }
 
-        lectureService.createLecture(lectureCreateForm);
-
-        return ResponseEntity.ok().body("강의 생성 성공");
+    /**
+     * 강의 수정
+     */
+    @PutMapping("/updateLecture")
+    public ResponseEntity<Long> updateLecture(@Valid @RequestBody LectureUpdateForm lectureUpdateForm) {
+        log.info("### Lecture Update Form : {}", lectureUpdateForm.getId());
+        return ResponseEntity.ok(lectureService.updateLecture(lectureUpdateForm));
     }
 
     /**

@@ -8,6 +8,7 @@ import com.steveleeacademy.academylecture.lecture.dto.LectureContentDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureDetailDto;
 import com.steveleeacademy.academylecture.lecture.dto.LectureListDto;
 import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
+import com.steveleeacademy.academylecture.lecture.form.LectureUpdateForm;
 import com.steveleeacademy.academylecture.lecture.repository.CategoryRepository;
 import com.steveleeacademy.academylecture.lecture.repository.DayRepository;
 import com.steveleeacademy.academylecture.lecture.repository.KeywordRepository;
@@ -26,6 +27,9 @@ import java.util.List;
 public class LectureService {
 
     private final LectureRepository lectureRepository;
+    private final CategoryRepository categoryRepository;
+    private final DayRepository dayRepository;;
+    private final KeywordRepository keywordRepository;
 
     /**
      * 강의 생성
@@ -64,6 +68,42 @@ public class LectureService {
      */
     public LectureDetailDto findLecture(Long lectureId) {
         return LectureDetailDto.createLectureDetailDto(lectureRepository.findById(lectureId).get());
+    }
+
+    @Transactional
+    public Long updateLecture(LectureUpdateForm lectureUpdateForm) {
+
+        if (lectureUpdateForm.getId() != null) {
+
+            lectureRepository.findById(lectureUpdateForm.getId()).get().getCategories().forEach(category -> {
+                categoryRepository.deleteById(category.getId());
+            });
+
+            lectureRepository.findById(lectureUpdateForm.getId()).get().getDays().forEach(day -> {
+                dayRepository.deleteById(day.getId());
+            });
+
+            lectureRepository.findById(lectureUpdateForm.getId()).get().getKeywords().forEach(keyword -> {
+                keywordRepository.deleteById(keyword.getId());
+            });
+
+            Lecture updateLecture = Lecture.updateLectureBuilder(lectureUpdateForm);
+
+            lectureUpdateForm.getCategories().forEach(category -> {
+                updateLecture.addCategory(new Category(category));
+            });
+
+            lectureUpdateForm.getDays().forEach(day -> {
+                updateLecture.addDay(new Day(day));
+            });
+
+            lectureUpdateForm.getKeywords().forEach(keyword -> {
+                updateLecture.addKeyword(new Keyword(keyword));
+            });
+            return lectureRepository.save(updateLecture).getId();
+        } else {
+            throw new IllegalArgumentException("수정할 강의 ID값이 존재하지 않습니다.");
+        }
     }
 
     /**
