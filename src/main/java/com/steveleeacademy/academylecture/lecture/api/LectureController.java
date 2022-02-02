@@ -70,4 +70,21 @@ public class LectureController {
 
         return ResponseEntity.ok(lectureService.searchLecture(category, title, writer));
     }
+
+//    /**
+//     * 강좌 신청
+//     */
+//    @PostMapping("/lecture/application")
+//    public ResponseEntity<String> lectureApplication(@RequestParam String userId, @RequestParam String lectureId) {
+//        log.info("### User ID : {}", userId);
+//        log.info("### Lecture ID : {}", lectureId);
+//
+//        lectureService.lectureApplication(userId, lectureId);
+//
+//        return ResponseEntity.ok("강의 신청 성공");
+//    }
+
+    /**
+     * 강좌 신청 내역
+     */
 }

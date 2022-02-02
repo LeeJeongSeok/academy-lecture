@@ -126,4 +126,7 @@ public class LectureService {
         return LectureContentDto.createLectureListDto(searchingLectures);
     }
 
+//    public void lectureApplication(String userId, String lectureId) {
+//
+//    }
 }
