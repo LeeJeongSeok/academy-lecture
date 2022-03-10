@@ -125,8 +125,4 @@ public class LectureService {
         List<Lecture> searchingLectures = lectureRepository.searchingLectureWithCategory(category, title, writer);
         return LectureContentDto.createLectureListDto(searchingLectures);
     }
-
-//    public void lectureApplication(String userId, String lectureId) {
-//
-//    }
 }

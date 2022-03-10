@@ -7,6 +7,7 @@ import com.steveleeacademy.academylecture.lecture.form.LectureCreateForm;
 import com.steveleeacademy.academylecture.lecture.form.LectureUpdateForm;
 import com.steveleeacademy.academylecture.lecture.service.LectureService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class LectureController {
      * 강의 리스트
      */
     @GetMapping("/lecture")
+    @ApiOperation(value = "강의목록", notes = "강의목록을 출력한다.")
     public ResponseEntity<LectureListDto> getLectures() {
         return ResponseEntity.ok(lectureService.findLectures());
     }
@@ -37,6 +39,7 @@ public class LectureController {
      * 강의상세보기
      */
     @GetMapping("/lecture/{id}")
+    @ApiOperation(value = "상세보기", notes = "강의의 대한 내용을 출력한다.")
     public ResponseEntity<LectureDetailDto> getLecture(@PathVariable Long id) {
         return ResponseEntity.ok(lectureService.findLecture(id));
     }
@@ -45,6 +48,7 @@ public class LectureController {
      * 강의생성
      */
     @PostMapping("/lecture")
+    @ApiOperation(value = "강의생성", notes = "강의를 생성한다.")
     public ResponseEntity<Long> createLecture(@Valid @RequestBody LectureCreateForm lectureCreateForm) {
         log.info("### Lecture Create Form : {}", lectureCreateForm);
         return ResponseEntity.ok(lectureService.createLecture(lectureCreateForm));
@@ -54,6 +58,7 @@ public class LectureController {
      * 강의 수정
      */
     @PutMapping("/lecture")
+    @ApiOperation(value = "강의수정", notes = "강의를 수정한다.")
     public ResponseEntity<Long> updateLecture(@Valid @RequestBody LectureUpdateForm lectureUpdateForm) {
         log.info("### Lecture Update Form : {}", lectureUpdateForm.getId());
         return ResponseEntity.ok(lectureService.updateLecture(lectureUpdateForm));
@@ -63,6 +68,7 @@ public class LectureController {
      * 검색명 & 카테고리로 찾기
      */
     @GetMapping("/lecture/search")
+    @ApiOperation(value = "강의 찾기", notes = "주어진 검색어, 카테고리로 강의를 찾는다.")
     public ResponseEntity<List<LectureContentDto>> searchLecture(@RequestParam String category, @RequestParam String title, @RequestParam String writer) {
         log.info("### Search Category  : {}", category);
         log.info("### Search Title : {}", title);
@@ -70,21 +76,4 @@ public class LectureController {
 
         return ResponseEntity.ok(lectureService.searchLecture(category, title, writer));
     }
-
-//    /**
-//     * 강좌 신청
-//     */
-//    @PostMapping("/lecture/application")
-//    public ResponseEntity<String> lectureApplication(@RequestParam String userId, @RequestParam String lectureId) {
-//        log.info("### User ID : {}", userId);
-//        log.info("### Lecture ID : {}", lectureId);
-//
-//        lectureService.lectureApplication(userId, lectureId);
-//
-//        return ResponseEntity.ok("강의 신청 성공");
-//    }
-
-    /**
-     * 강좌 신청 내역
-     */
 }
